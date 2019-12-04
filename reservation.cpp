@@ -7,20 +7,27 @@ date="";
 prix=0;
 heure="";
 conf="";
+idavion=0;
 }
 
-Reservation::Reservation(int id,QString date,float prix,QString heure,QString conf)
+Reservation::Reservation(int id,QString date,float prix,QString heure,QString conf,int idavion)
 {
   this->id=id;
   this->date=date;
   this->prix=prix;
   this->heure=heure;
   this->conf=conf;
+    this->conf=conf;
+    this->idavion=idavion;
+
+
 }
 QString Reservation::get_date(){return  date;}
 QString Reservation::get_heure(){return heure;}
 QString Reservation::get_conf(){return  conf;}
 int Reservation::get_id(){return  id;}
+int Reservation::get_idavion(){return  idavion;}
+
 double Reservation::get_prix(){return  prix;}
 
 
@@ -28,16 +35,18 @@ bool Reservation::ajouter()
 {
 QSqlQuery query;
 QString res= QString::number(id);
+QString res1= QString::number(idavion);
 
 QString ress= QString::number(prix);
 
-query.prepare("INSERT INTO RESERVATION (ID_RESERVATION, DATE_RESV, PRIX, HEURE, CONFIRMATION) "
-                    "VALUES (:id, :date, :prix, :heure, :conf)");
+query.prepare("INSERT INTO RESERVATION (ID_RESERVATION, DATE_RESV, PRIX, HEURE, CONFIRMATION,ID_AVION) "
+                    "VALUES (:id, :date, :prix, :heure, :conf,:idavion)");
 query.bindValue(":id", res);
 query.bindValue(":date", date);
 query.bindValue(":prix", ress);
 query.bindValue(":heure", heure);
 query.bindValue(":conf", conf);
+query.bindValue(":idavion", res1);
 
 
 
@@ -52,6 +61,7 @@ model->setHeaderData(1, Qt::Horizontal, QObject::tr("Date "));
 model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prix"));
 model->setHeaderData(3, Qt::Horizontal, QObject::tr("Heure "));
 model->setHeaderData(4, Qt::Horizontal, QObject::tr("Conf"));
+model->setHeaderData(4, Qt::Horizontal, QObject::tr("ID_AVION"));
 
 
     return model;
@@ -71,12 +81,16 @@ bool Reservation::modifier(int id)
     QSqlQuery query;
    QString res= QString::number(id);
     QString rese=QString::number(prix);
-   query.prepare("UPDATE RESERVATION SET DATE_RESV=:date2,PRIX=:prix,HEURE=:heure2,CONFIRMATION=:conf2 WHERE ID_RESERVATION=:id");
+    QString res1= QString::number(idavion);
+
+   query.prepare("UPDATE RESERVATION SET DATE_RESV=:date2,PRIX=:prix,HEURE=:heure2,CONFIRMATION=:conf2,ID_AVION=idavion2 WHERE ID_RESERVATION=:id");
    query.bindValue(":id",res);
    query.bindValue(":date2",date);
    query.bindValue(":prix",rese);
    query.bindValue(":heure2",heure);
    query.bindValue(":conf2",conf);
+   query.bindValue(":idavion2",res1);
+
    return  query.exec();
 }
 QSqlQueryModel * Reservation::chercheresv(const QString &id)
@@ -89,6 +103,8 @@ QSqlQueryModel * Reservation::chercheresv(const QString &id)
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRIX"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("HEURE"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("CONFIRMATION"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("ID_AVION"));
+
         return model;
 }
 

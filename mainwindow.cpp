@@ -52,11 +52,12 @@ void MainWindow::on_ajouter_clicked()
    float prix = ui->prix->text().toFloat();
     QString heure= ui->heure->text();
 
+    int idavion = ui->idavion->text().toInt();
 
 
     QString conf= ui->conf->text();
 
-  Reservation r(id,date,prix,heure,conf);
+  Reservation r(id,date,prix,heure,conf,idavion);
   bool test=r.ajouter();
   if(test)
 {ui->tabreservation->setModel(tmpreservation.afficher());//refresh
@@ -103,8 +104,9 @@ void MainWindow::on_pushButton_clicked()
        QString heure= ui->heure2->text();
 
        QString conf= ui->conf->text();
+       int idavion = ui->idavion2->text().toInt();
 
-       Reservation r1(id,date,prix,heure,conf);
+       Reservation r1(id,date,prix,heure,conf,idavion);
      bool test=r1.modifier(id);
      if(test)
    {ui->tabreservation->setModel(tmpreservation.afficher());//refresh

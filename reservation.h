@@ -11,12 +11,14 @@
 class Reservation
 {public:
     Reservation();
-    Reservation(int,QString,float,QString,QString);
+    Reservation(int,QString,float,QString,QString,int);
     QString get_date();
     double get_prix();
     QString get_heure();
     QString get_conf();
     int get_id();
+    int get_idavion();
+
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int);
@@ -26,7 +28,7 @@ class Reservation
 
 private:
     QString date,heure,conf;
-    int id;
+    int id,idavion;
     double prix;
 };
 
