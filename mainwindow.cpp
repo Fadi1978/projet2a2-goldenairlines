@@ -121,7 +121,7 @@ void MainWindow::on_pushButton_clicked()
                                  "Click Cancel to exit."), QMessageBox::Cancel);
 }
 
-
+/* ************************************************************************************ */
 void MainWindow::on_ajouteravion_clicked()
 {
     int mat = ui->mat->text().toInt();
